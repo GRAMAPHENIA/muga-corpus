@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MUGA · Corpus</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <h1>MUGA · Corpus</h1>
+  <p>Mapa estructural de textos</p>
+</header>
+
+<main class="layout">
+  <div class="main-column">
+
+    <div id="filters">
+      <select id="filter-tipo">
+        <option value="">Tipo (todos)</option>
+      </select>
+
+      <select id="filter-rol">
+        <option value="">Rol (todos)</option>
+      </select>
+
+      <select id="filter-universo">
+        <option value="">Universo (todos)</option>
+      </select>
+
+      <button id="toggle-focus" aria-pressed="false">Modo foco</button>
+      <button id="toggle-graph" aria-pressed="false">Vista grafo</button>
+    </div>
+
+    <div id="app"></div>
+    <div id="graph" hidden></div>
+
+  </div>
+
+  <aside id="detail">
+    <p class="placeholder">Seleccioná un texto</p>
+  </aside>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
