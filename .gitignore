@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+pnpm-lock.yaml
+yarn.lock
+.DS_Store
+.next
+apps/backend/dist
+.env
+sample/sample.docx
