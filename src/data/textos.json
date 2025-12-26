@@ -1,0 +1,35 @@
+[
+  {
+    "titulo": "Napoleon el cerdo v",
+    "tipo": "Narrativa",
+    "rol": "Módulo",
+    "universo": "muga",
+    "dependeDe": "muga",
+    "slug": "napoleon-el-cerdo-v",
+    "id": "mjlyf2w3ftbgsqhyz6t",
+    "parrafos": [
+      "**Titulo**",
+      "*Este es el parrafo con cursive*",
+      "Puede ser que ",
+      "esto parezca",
+      "una presion subcutanea"
+    ]
+  },
+  {
+    "titulo": "Mirastas",
+    "tipo": "Ensayo",
+    "rol": "Versión",
+    "universo": "Cosmixs",
+    "dependeDe": "devs",
+    "parrafos": [
+      "**Esto puede sonar raro**",
+      "Ciertas",
+      "seremonias",
+      "*absurdas*",
+      "realiticas",
+      "__pasmaticas__"
+    ],
+    "slug": "mirastas",
+    "id": "mjm4z2ezhm83uz2fvge"
+  }
+]

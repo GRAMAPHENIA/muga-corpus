@@ -1,0 +1,142 @@
+---
+import '../styles/global.css';
+---
+
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<title>MUGA · Corpus</title>
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+	</head>
+	<body>
+		<header class="p-6 border-b-2 border-solid flex justify-between items-start" style="border-color: var(--line);">
+			<div>
+				<h1 class="m-0 text-lg" style="color: var(--accent);">MUGA · Corpus</h1>
+				<p class="m-1 mt-1 text-xs" style="color: var(--muted);">Mapa estructural de textos</p>
+			</div>
+			<div class="flex items-center gap-2">
+				<button id="show-add-form" class="bg-transparent text-current border p-1.5 text-xs cursor-pointer flex items-center" style="border-color: var(--line);" title="Agregar texto">
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+						<path d="M12 5v14M5 12h14"></path>
+					</svg>
+				</button>
+				<button id="toggle-theme" class="bg-transparent text-current border p-1.5 text-xs cursor-pointer flex items-center" style="border-color: var(--line);">
+					<svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+						<circle cx="12" cy="12" r="5"></circle>
+						<path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+					</svg>
+				</button>
+			</div>
+		</header>
+
+		<main class="layout grid grid-cols-[minmax(0,3fr)_minmax(0,1.2fr)] min-h-[calc(100vh-80px)]">
+			<div class="main-column border-r-2" style="border-color: var(--line); min-width: 0;">
+				<div id="filters" class="p-4 border-b-2 grid grid-cols-5 gap-3" style="border-color: var(--line);">
+					<div class="custom-select" id="filter-tipo" tabindex="0" role="listbox" aria-expanded="false">
+						<div class="custom-select-trigger">
+							<span class="custom-select-value">Tipo (todos)</span>
+							<svg class="custom-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="6,9 12,15 18,9"></polyline>
+							</svg>
+						</div>
+						<div class="custom-select-options" hidden>
+						</div>
+					</div>
+					<div class="custom-select" id="filter-rol" tabindex="0" role="listbox" aria-expanded="false">
+						<div class="custom-select-trigger">
+							<span class="custom-select-value">Rol (todos)</span>
+							<svg class="custom-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="6,9 12,15 18,9"></polyline>
+							</svg>
+						</div>
+						<div class="custom-select-options" hidden>
+						</div>
+					</div>
+					<div class="custom-select" id="filter-universo" tabindex="0" role="listbox" aria-expanded="false">
+						<div class="custom-select-trigger">
+							<span class="custom-select-value">Universo (todos)</span>
+							<svg class="custom-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="6,9 12,15 18,9"></polyline>
+							</svg>
+						</div>
+						<div class="custom-select-options" hidden>
+						</div>
+					</div>
+					<button id="toggle-focus" aria-pressed="false" class="w-full bg-transparent text-current border-2 p-1.5 text-xs cursor-pointer" style="border-color: var(--line);">Modo foco</button>
+					<button id="toggle-graph" aria-pressed="false" class="w-full bg-transparent text-current border-2 p-1.5 text-xs cursor-pointer" style="border-color: var(--line);">Vista grafo</button>
+				</div>
+
+				<div id="add-form" class="p-4 border-b-2 hidden" style="border-color: var(--line);">
+					<h3 class="text-sm mb-3" style="color: var(--accent);">Agregar nuevo texto</h3>
+					<div class="grid grid-cols-2 gap-3 mb-3">
+						<input id="sidebar-add-titulo" type="text" placeholder="Título" class="bg-transparent text-current border-2 p-1.5 text-xs" style="border-color: var(--line);">
+						<select id="sidebar-add-tipo" class="bg-transparent text-current border-2 p-1.5 text-xs" style="border-color: var(--line);">
+							<option value="">Tipo</option>
+							<option value="Narrativa">Narrativa</option>
+							<option value="Ensayo">Ensayo</option>
+						</select>
+						<select id="sidebar-add-rol" class="bg-transparent text-current border-2 p-1.5 text-xs" style="border-color: var(--line);">
+							<option value="">Rol</option>
+							<option value="Raíz">Raíz</option>
+							<option value="Versión">Versión</option>
+							<option value="Módulo">Módulo</option>
+						</select>
+						<input id="sidebar-add-universo" type="text" placeholder="Universo" class="bg-transparent text-current border-2 p-1.5 text-xs" style="border-color: var(--line);">
+					</div>
+					<input id="sidebar-add-dependeDe" type="text" placeholder="Depende de (ID)" class="w-full bg-transparent text-current border-2 p-1.5 text-xs mb-3" style="border-color: var(--line);">
+					<div class="flex gap-3">
+						<button id="sidebar-add-submit" class="bg-transparent text-current border-2 p-1.5 text-xs cursor-pointer" style="border-color: var(--line);">Agregar</button>
+						<button id="sidebar-add-cancel" class="bg-transparent text-current border-2 p-1.5 text-xs cursor-pointer" style="border-color: var(--line);">Cancelar</button>
+					</div>
+				</div>
+
+
+				<div id="app"></div>
+				<div id="graph" hidden></div>
+			</div>
+
+			<aside id="detail" class="p-6 text-sm">
+				<p class="placeholder" style="color: var(--muted);">Seleccioná un texto</p>
+			</aside>
+		</main>
+
+		<div id="modal-backdrop" class="fixed inset-0 bg-bg backdrop-blur-sm hidden z-50 items-center justify-center">
+			<div id="add-modal" class="p-6 shadow-lg max-w-md w-full mx-4" style="background: #1A1B20; border: 1px solid rgba(255, 255, 255, 0.1); color: var(--fg);">
+				<h3 class="text-lg mb-4" style="color: var(--accent);">Agregar nuevo texto</h3>
+				<div class="space-y-4">
+					<input id="add-titulo" type="text" placeholder="Título" class="w-full bg-transparent text-current border p-2 text-sm" style="border-color: var(--line);">
+					<div class="grid grid-cols-2 gap-3">
+						<select id="add-tipo" class="bg-transparent text-current border p-2 text-sm" style="border-color: var(--line);">
+							<option value="">Tipo</option>
+							<option value="Narrativa">Narrativa</option>
+							<option value="Ensayo">Ensayo</option>
+						</select>
+						<select id="add-rol" class="bg-transparent text-current border p-2 text-sm" style="border-color: var(--line);">
+							<option value="">Rol</option>
+							<option value="Raíz">Raíz</option>
+							<option value="Versión">Versión</option>
+							<option value="Módulo">Módulo</option>
+						</select>
+					</div>
+					<input id="add-universo" type="text" placeholder="Universo" class="w-full bg-transparent text-current border p-2 text-sm" style="border-color: var(--line);">
+					<input id="add-dependeDe" type="text" placeholder="Depende de (slug)" class="w-full bg-transparent text-current border p-2 text-sm" style="border-color: var(--line);">
+					<div>
+						<div class="flex gap-2 mb-2">
+							<button id="format-bold" class="bg-transparent text-current border p-1 text-xs cursor-pointer" style="border-color: var(--line);" title="Negrita"><b>B</b></button>
+							<button id="format-italic" class="bg-transparent text-current border p-1 text-xs cursor-pointer" style="border-color: var(--line);" title="Cursiva"><i>I</i></button>
+							<button id="format-underline" class="bg-transparent text-current border p-1 text-xs cursor-pointer" style="border-color: var(--line);" title="Subrayado"><u>U</u></button>
+						</div>
+						<textarea id="add-parrafos" placeholder="Párrafos separados por líneas" class="w-full bg-transparent text-current border p-2 text-sm h-32" style="border-color: var(--line);"></textarea>
+					</div>
+					<div class="flex gap-3 justify-end">
+						<button id="add-cancel" class="bg-transparent text-current border p-2 text-sm cursor-pointer" style="border-color: var(--line);">Cancelar</button>
+						<button id="add-submit" class="bg-transparent text-current border p-2 text-sm cursor-pointer" style="border-color: var(--accent); color: var(--accent);">Agregar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../scripts/app.ts"></script>
+	</body>
+</html>
